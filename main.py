@@ -62,15 +62,6 @@ class Report:
        }
 
 
-    def display_summary(self, summary):
-        print(f'''
-                      ========== Financial Report ==========
-                      Total Income: 💲{summary["income"]}
-                      Total Expenses: 💲{summary["expenses"]}
-                      Balance: 💲{summary["balance"]}
-                      Percent Spent: {summary["percent_spent"]:.2f}%
-                ''')
-
 
 import json
 
@@ -95,6 +86,15 @@ class App:
         self.storage = Storage()
         loaded_transactions = self.storage.load()
         self.budget.transactions = loaded_transactions
+
+    def display_summary(self, summary):
+        print(f'''
+                      ========== Financial Report ==========
+                      Total Income: 💲{summary["income"]}
+                      Total Expenses: 💲{summary["expenses"]}
+                      Balance: 💲{summary["balance"]}
+                      Percent Spent: {summary["percent_spent"]:.2f}%
+                ''')
 
     def create_transaction(self, transaction_type):
         if transaction_type == "income":
