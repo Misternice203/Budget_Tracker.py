@@ -1,3 +1,4 @@
+
 class Transaction:
     def __init__(self, date, description, category, transaction_type, amount):
         self.amount = amount
@@ -47,25 +48,25 @@ class Report:
         if self.total_income() == 0:
             return print("Unable to divide by zero!")
         else:
-            return self.percent_spent() == (self.total_expenses / self.total_income) * 100
+            return self.total_expenses() / self.total_income() * 100
 
     def generate_summary(self):
         income = self.total_income()
         expenses = self.total_expenses()
         balance = self.balance()
         percent = self.percent_spent()
-        while True:
-            report = print(f'''
-                           ========== Finacial Report ==========
-                           Total Income: {income}
-                           Total Expenses: {expenses}
-                           Balance: {balance}
-                           Percent Spent: {percent}
-                        ''')
+        print(f'''
+              ========== Finacial Report ==========
+              Total Income: {income}
+              Total Expenses: {expenses}
+              Balance: {balance}
+              Percent Spent: {percent}
+            ''')
 
 
     
 import json
+
 
 class Storage:
     def save(self, transactions):
@@ -90,7 +91,6 @@ class App:
         self.budget.transactions = loaded_transactions
 
     def create_transaction(self, transaction_type):
-        self.transaction_type = transaction_type
         if transaction_type == "income":
             print("\nYou selected to Add Income!\n")
             date = input("Enter the date (YYYY-MM-DD): ")
@@ -136,7 +136,7 @@ class App:
                     print(f"\n{t.date} | {t.description} | {t.category} | {t.type} | {t.amount}\n")
 
             elif choice == 5:
-                print("You Selected to View Your Report!", self.generate_summary(self.report))
+                print("You Selected to View Your Report!", self.report.generate_summary())
                 
 
 
