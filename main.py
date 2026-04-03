@@ -1,4 +1,3 @@
-
 class Transaction:
     def __init__(self, date, description, category, transaction_type, amount):
         self.amount = amount
@@ -137,10 +136,10 @@ class App:
 
                 print(f'''
                       ========== Financial Report ==========
-                      Total Income: {summary["income"]}
-                      Total Expenses: {summary["expenses"]}
-                      Balance: {summary["balance"]}
-                      Percent Spent: {summary["percent_spent":]}
+                      Total Income: 💲{summary["income"]}
+                      Total Expenses: 💲{summary["expenses"]}
+                      Balance: 💲{summary["balance"]}
+                      Percent Spent: 💲{summary["percent_spent"]:.2f}%
                 ''')
 
 
