@@ -1,3 +1,4 @@
+
 class Transaction:
     def __init__(self, date, description, category, transaction_type, amount):
         self.amount = amount
@@ -60,9 +61,18 @@ class Report:
            "percent_spent": (expenses / income * 100) if income else 0
        }
 
-    
-import json
 
+    def display_summary(self, summary):
+        print(f'''
+                      ========== Financial Report ==========
+                      Total Income: 💲{summary["income"]}
+                      Total Expenses: 💲{summary["expenses"]}
+                      Balance: 💲{summary["balance"]}
+                      Percent Spent: {summary["percent_spent"]:.2f}%
+                ''')
+
+
+import json
 
 class Storage:
     def save(self, transactions):
@@ -112,6 +122,7 @@ class App:
 
     def run(self):
         while True:
+            
             choice = int(input("\n1. Add Income\n2. Add expense\n3. View Balance\n4. View Transactions\n5. Report Summary\n6. Exit Program\n"))
 
             if choice < 1 or choice > 6:
@@ -133,14 +144,7 @@ class App:
 
             elif choice == 5:
                 summary = self.report.generate_summary()
-
-                print(f'''
-                      ========== Financial Report ==========
-                      Total Income: 💲{summary["income"]}
-                      Total Expenses: 💲{summary["expenses"]}
-                      Balance: 💲{summary["balance"]}
-                      Percent Spent: 💲{summary["percent_spent"]:.2f}%
-                ''')
+                self.display_summary(summary)
 
 
             elif choice == 6:
