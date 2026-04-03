@@ -40,12 +40,12 @@ This project demonstrates:
 5. Exit Program
 
 ## Future Improvements
-* Better formatted transaction display (table view)
+* Better formatted transaction display (table view) [X]
 * Input validation and error handling improvements
 * Transaction filtering (Income vs Expenses)
 * Delete/edit Transactions
 * Monthly summaries and reporting
-* Refactor into multiple files
+* Refactor into multiple files [X]
 
 ## Notes
 This project is part of my journey toward becoming a backend developer. More features and improvements will be added overtime.
