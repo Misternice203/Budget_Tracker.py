@@ -1,84 +1,9 @@
-
-class Transaction:
-    def __init__(self, date, description, category, transaction_type, amount):
-        self.amount = amount
-        self.category = category
-        self.date = date
-        self.type = transaction_type
-        self.description = description
-
-    def to_dict(self):
-        return {
-            "transaction_type": self.type,
-            "category": self.category,
-            "description": self.description,
-            "date": self.date,
-            "amount": self.amount
-        }
+from budget import Budget
+from report import Report
+from storage import Storage
+from transaction import Transaction
 
 
-class Budget:
-    def __init__(self):
-        self.transactions = []
-
-    def add_transaction(self, transaction):
-        self.transactions.append(transaction)
-
-    def get_expenses(self):
-        return [t for t in self.transactions if t.type == "expense"]
-    
-    def get_income(self):
-        return [t for t in self.transactions if t.type == "income"]
-    
-
-class Report:
-    def __init__(self, budget):
-        self.budget = budget
-
-    def total_expenses(self):
-        return sum(t.amount for t in self.budget.get_expenses())
-
-    def total_income(self):
-        return sum(t.amount for t in self.budget.get_income())
-    
-    def balance(self):
-        return self.total_income() - self.total_expenses()
-    
-    def percent_spent(self):
-        if self.total_income() == 0:
-            return "N/A"
-        else:
-            return self.total_expenses() / self.total_income() * 100
-
-    def generate_summary(self):
-       income = self.total_income()
-       expenses = self.total_expenses()
-
-       return {
-           "income": income,
-           "expenses": expenses,
-           "balance": income - expenses,
-           "percent_spent": (expenses / income * 100) if income else 0
-       }
-
-
-
-import json
-
-class Storage:
-    def save(self, transactions):
-        data = [t.to_dict() for t in transactions]
-        with open("data.json", "w") as f:
-            json.dump(data, f, indent=4)
-
-    def load(self):
-        try:
-            with open("data.json", "r") as f:
-                data = json.load(f)
-                return [Transaction(**t)for t in data]
-        except FileNotFoundError:
-            return []
-        
 class App:
     def __init__(self):
         self.budget = Budget()
@@ -122,13 +47,13 @@ class App:
 
     def run(self):
         while True:
-            
-            choice = int(input("\n1. Add Income\n2. Add expense\n3. View Balance\n4. View Transactions\n5. Report Summary\n6. Exit Program\n"))
-
-            if choice < 1 or choice > 6:
-                print("Invalid input. Please select a option from the menu.")
+            try:
+                choice = int(input("\n1. Add Income\n2. Add expense\n3. View Balance\n4. View Transactions\n5. Report Summary\n6. Exit Program\n"))
+            except ValueError:
+                print("Invalid input. Please enter a option from the menu.")
                 continue
-            elif choice == 1:
+
+            if choice == 1:
                 self.create_transaction("income")
 
             elif choice == 2:
@@ -149,7 +74,9 @@ class App:
 
             elif choice == 6:
                 print("You Selected to End The Program.\n All of Your Transactions Have Been Saved!" \
-                "Have a Great Day")
+                " Have a Great Day!")
                 break
+            else:
+                print("Invalid input. Please enter a option from the menu.")
 
 App().run()
