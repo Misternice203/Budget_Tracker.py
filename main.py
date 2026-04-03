@@ -43,6 +43,28 @@ class Report:
     def balance(self):
         return self.total_income() - self.total_expenses()
     
+    def percent_spent(self):
+        if self.total_income() == 0:
+            return print("Unable to divide by zero!")
+        else:
+            return self.percent_spent() == (self.total_expenses / self.total_income) * 100
+
+    def generate_summary(self):
+        income = self.total_income()
+        expenses = self.total_expenses()
+        balance = self.balance()
+        percent = self.percent_spent()
+        while True:
+            report = print(f'''
+                           ========== Finacial Report ==========
+                           Total Income: {income}
+                           Total Expenses: {expenses}
+                           Balance: {balance}
+                           Percent Spent: {percent}
+                        ''')
+
+
+    
 import json
 
 class Storage:
@@ -94,9 +116,9 @@ class App:
 
     def run(self):
         while True:
-            choice = int(input("\n1. Add Income\n2. Add expense\n3. View Balance\n4. View Transactions\n5. Exit Program\n"))
+            choice = int(input("\n1. Add Income\n2. Add expense\n3. View Balance\n4. View Transactions\n5. Report Summary\n6. Exit Program\n"))
 
-            if choice < 1 or choice > 5:
+            if choice < 1 or choice > 6:
                 print("Invalid input. Please select a option from the menu.")
                 continue
             elif choice == 1:
@@ -114,7 +136,12 @@ class App:
                     print(f"\n{t.date} | {t.description} | {t.category} | {t.type} | {t.amount}\n")
 
             elif choice == 5:
-                print("You selected to End the program.\n All of your transactions have been saved!" \
+                print("You Selected to View Your Report!", self.generate_summary(self.report))
+                
+
+
+            elif choice == 6:
+                print("You Selected to End The Program.\n All of Your Transactions Have Been Saved!" \
                 "Have a Great Day")
                 break
 
