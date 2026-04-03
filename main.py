@@ -46,23 +46,20 @@ class Report:
     
     def percent_spent(self):
         if self.total_income() == 0:
-            return print("Unable to divide by zero!")
+            return "N/A"
         else:
             return self.total_expenses() / self.total_income() * 100
 
     def generate_summary(self):
-        income = self.total_income()
-        expenses = self.total_expenses()
-        balance = self.balance()
-        percent = self.percent_spent()
-        print(f'''
-              ========== Finacial Report ==========
-              Total Income: {income}
-              Total Expenses: {expenses}
-              Balance: {balance}
-              Percent Spent: {percent}
-            ''')
+       income = self.total_income()
+       expenses = self.total_expenses()
 
+       return {
+           "income": income,
+           "expenses": expenses,
+           "balance": income - expenses,
+           "percent_spent": (expenses / income * 100) if income else 0
+       }
 
     
 import json
@@ -136,8 +133,15 @@ class App:
                     print(f"\n{t.date} | {t.description} | {t.category} | {t.type} | {t.amount}\n")
 
             elif choice == 5:
-                print("You Selected to View Your Report!", self.report.generate_summary())
-                
+                summary = self.report.generate_summary()
+
+                print(f'''
+                      ========== Financial Report ==========
+                      Total Income: {summary["income"]}
+                      Total Expenses: {summary["expenses"]}
+                      Balance: {summary["balance"]}
+                      Percent Spent: {summary["percent_spent":]}
+                ''')
 
 
             elif choice == 6:
