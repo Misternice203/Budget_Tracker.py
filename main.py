@@ -16,9 +16,9 @@ class App:
     def display_summary(self, summary):
         print(f'''
                       ========== Financial Report ==========
-                      Total Income: 💲{summary["income"]}
-                      Total Expenses: 💲{summary["expenses"]}
-                      Balance: 💲{summary["balance"]}
+                      Total Income: 💲{summary["income"]:.2f}
+                      Total Expenses: 💲{summary["expenses"]:.2f}
+                      Balance: 💲{summary["balance"]:.2f}
                       Percent Spent: {summary["percent_spent"]:.2f}%
                 ''')
 
@@ -78,8 +78,6 @@ class App:
             except ValueError:
                 print("Invalid input. Please enter a option from the menu.")
                 continue
-            
-            print("Debug: passed validation")
 
             if choice == 1:
                 self.create_transaction("income")
@@ -88,12 +86,12 @@ class App:
                 self.create_transaction("expense")
             
             elif choice == 3:
-                print("Balance:", self.report.balance())
+                print(f"Balance: 💲{self.report.balance():.2f}")
 
             elif choice == 4:
                 print("You selected to View your Transactions.")
                 for t in self.budget.transactions:
-                    print(f"\n{t.date} | {t.description} | {t.category} | {t.transaction_type} | {t.amount}\n")
+                    print(f"\n{t.date} | {t.description} | {t.category} | {t.transaction_type} | {t.amount:.2f}\n")
 
             elif choice == 5:
                 summary = self.report.generate_summary()
