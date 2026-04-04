@@ -27,7 +27,12 @@ class App:
             date = input("Enter the date (YYYY-MM-DD): ")
             description = input("Enter A Short Description (Job, W2, 1099): ")
             category = input("Enter A Category (Deposit, Check, Side Hustle): ")
-            amount = float(input("Enter The Amount: "))
+            while True:
+                try:
+                    amount = float(input("Enter The Amount: "))
+                    break
+                except ValueError:
+                    print("Invalid Response. Please Enter A Number.")
 
             t = Transaction(date, description, category, "income", amount)
             self.budget.add_transaction(t)
@@ -36,9 +41,15 @@ class App:
         else:
             print("\nYou selected To Add A Expense!\n")
             date = input("Enter The Date (YYYY-MM-DD): ")
-            description = input("Enter A Short Desctription (fast-food, Movie, Clothes): ")
+            description = input("Enter A Short Description (fast-food, Movie, Clothes): ")
             category = input("Enter A Category (Bill, Lunch, Groceries): ")
-            amount = float(input("Enter The Amount: "))
+            while True:
+                try: 
+                    amount = float(input("Enter The Amount: "))
+                    break
+                except ValueError:
+                    print("Invalid Response. Please Enter A Number.")
+        
 
             t = Transaction(date, description, category, "expense", amount)
             self.budget.add_transaction(t)
