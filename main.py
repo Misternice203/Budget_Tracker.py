@@ -1,4 +1,3 @@
-
 from budget import Budget
 from report import Report
 from storage import Storage
@@ -23,16 +22,20 @@ class App:
                       Percent Spent: {summary["percent_spent"]:.2f}%
                 ''')
 
+    def get_valid_date(self, prompt):
+        while True:
+            date_input = input(prompt).strip()
+            try:
+                datetime.strptime(date_input, "%Y-%m-%d")
+                return date_input
+            except ValueError:
+                print("Invalid date format. Please use YYYY-MM-DD.")
+
+
     def create_transaction(self, transaction_type):
         if transaction_type == "income":
             print("\nYou selected to Add Income!\n")
-            while True:
-                date = input("Enter the date (YYYY-MM-DD): ")
-                try:
-                    datetime.strptime(date, "YYYY-MM-DD")
-                    break
-                except ValueError:
-                    print("Invalid date format. please use YYYY-MM-DD format.")
+            date = self.get_valid_date("Enter the date (YYYY-MM-DD): ")
             description = input("Enter A Short Description (Job, W2, 1099): ")
             category = input("Enter A Category (Deposit, Check, Side Hustle): ")
             while True:
@@ -48,13 +51,7 @@ class App:
 
         else:
             print("\nYou selected To Add A Expense!\n")
-            while True:
-                date = input("Enter The Date (YYYY-MM-DD): ")
-                try:
-                    datetime.strptime(date, "%Y-%m-%d")
-                    break
-                except ValueError:
-                    print("Invalid date format. Please use YYYY-MM-DD format")
+            date = self.get_valid_date("Enter the date (YYYY-MM-DD): ")
             description = input("Enter A Short Description (fast-food, Movie, Clothes): ")
             category = input("Enter A Category (Bill, Lunch, Groceries): ")
             while True:
@@ -80,7 +77,7 @@ class App:
             except ValueError:
                 print("Invalid input. Please enter a option from the menu.")
                 continue
-            
+
             if choice == 1:
                 self.create_transaction("income")
 
