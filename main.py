@@ -1,3 +1,4 @@
+
 from budget import Budget
 from report import Report
 from storage import Storage
@@ -50,7 +51,7 @@ class App:
             while True:
                 date = input("Enter The Date (YYYY-MM-DD): ")
                 try:
-                    datetime.strptime(date, "YYYY-MM-DD")
+                    datetime.strptime(date, "%Y-%m-%d")
                     break
                 except ValueError:
                     print("Invalid date format. Please use YYYY-MM-DD format")
@@ -74,11 +75,12 @@ class App:
             try:
                 choice = int(input("\n1. Add Income\n2. Add expense\n3. View Balance\n4. View Transactions\n5. Report Summary\n6. Exit Program\n"))
                 if choice in [1, 2, 3, 4, 5, 6]:
-                    break
-                else:
-                    print("Please choose a valid menu option (1-6).")
+                    continue
+
             except ValueError:
                 print("Invalid input. Please enter a option from the menu.")
+                continue
+            
             if choice == 1:
                 self.create_transaction("income")
 
