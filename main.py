@@ -76,7 +76,7 @@ class App:
             elif choice == 4:
                 print("You selected to View your Transactions.")
                 for t in self.budget.transactions:
-                    print(f"\n{t.date} | {t.description} | {t.category} | {t.type} | {t.amount}\n")
+                    print(f"\n{t.date} | {t.description} | {t.category} | {t.transaction_type} | {t.amount}\n")
 
             elif choice == 5:
                 summary = self.report.generate_summary()
