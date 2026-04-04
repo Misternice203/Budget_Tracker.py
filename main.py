@@ -71,12 +71,15 @@ class App:
         while True:
             try:
                 choice = int(input("\n1. Add Income\n2. Add expense\n3. View Balance\n4. View Transactions\n5. Report Summary\n6. Exit Program\n"))
-                if choice in [1, 2, 3, 4, 5, 6]:
+                if choice not in [1, 2, 3, 4, 5, 6]:
+                    print("Please choose a option from the menu.")
                     continue
 
             except ValueError:
                 print("Invalid input. Please enter a option from the menu.")
                 continue
+            
+            print("Debug: passed validation")
 
             if choice == 1:
                 self.create_transaction("income")
