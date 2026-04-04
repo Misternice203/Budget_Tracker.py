@@ -13,9 +13,26 @@ class Report:
     
     def percent_spent(self):
         if self.total_income() == 0:
-            return "N/A"
-        else:
-            return self.total_expenses() / self.total_income() * 100
+            return 0.0
+        return self.total_expenses() / self.total_income() * 100
+
+    def monthly_summary(self):
+        monthly = {}
+        for t in self.budget.transactions:
+            if len(t.date) < 7:
+                continue
+            month_key = t.date[:7]
+            if month_key not in monthly:
+                monthly[month_key] = {"income": 0.0, "expenses": 0.0}
+            if t.transaction_type == "income":
+                monthly[month_key]["income"] += t.amount
+            else:
+                monthly[month_key]["expenses"] += t.amount
+        for month_key in monthly:
+            monthly[month_key]["balance"] = (
+                monthly[month_key]["income"] - monthly[month_key]["expenses"]
+            )
+        return monthly
 
     def generate_summary(self):
        income = self.total_income()
